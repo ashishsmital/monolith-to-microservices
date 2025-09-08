@@ -6,4 +6,6 @@
 # misc
 .DS_Store
 
-/logs
+/logsplaywright-report/
+test-results/
+node_modules/
