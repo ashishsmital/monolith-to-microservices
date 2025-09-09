@@ -36,6 +36,7 @@ import {
 //Import Pages
 import Home from "../../pages/Home";
 import Products from "../../pages/Products";
+import ProductDetails from "../../pages/ProductDetails";
 import Orders from "../../pages/Orders";
 import OrderDetails from "../../pages/OrderDetails";
 import NotFound from "../../pages/NotFound";
@@ -105,6 +106,9 @@ export default function ClippedDrawer() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/products/:id">
+              <ProductDetails />
             </Route>
             <Route exact path="/products">
               <Products />
