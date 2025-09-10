@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Paper,
@@ -25,6 +26,7 @@ import {
 } from "@mui/material";
 
 export default function Products() {
+  const history = useHistory();
   const [hasErrors, setErrors] = useState(false);
   const [products, setProducts] = useState([]);
 
@@ -41,6 +43,10 @@ export default function Products() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleProductClick = (productId) => {
+    history.push(`/products/${productId}`);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -68,7 +74,27 @@ export default function Products() {
           {products.map((product) => {
             return (
               <Grid key={product.id} item md={4} xs={12}>
-                <Card>
+                <Card
+                  onClick={() => handleProductClick(product.id)}
+                  sx={{ 
+                    cursor: 'pointer',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 3
+                    },
+                    transition: 'transform 0.2s, box-shadow 0.2s'
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleProductClick(product.id);
+                    }
+                  }}
+                  data-testid="product-card"
+                  data-product-id={product.id}
+                >
                   <CardMedia
                     sx={{ height: 0, paddingTop: "56.25%" }}
                     image={product.picture}
